@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Substitua texturas selecionadas dentro de um arquivo UnityWebData.">
+  <title>Skin Replace · Unity Texture Pipeline</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">▌</span><span>SKIN <b>/</b> REPLACE</span></div>
+      <div class="top-tools"><span class="tool-name">Unity txt png changer</span><label class="mini-search"><span>⌕</span><input id="asset-search" type="search" placeholder="pesquisar asset" aria-label="Pesquisar asset"></label></div>
+    </header>
+
+    <nav class="tabs" role="tablist" aria-label="Seções">
+      <button id="upload-tab" class="tab active" type="button" role="tab" aria-selected="true">Upload</button>
+      <button id="textures-tab" class="tab" type="button" role="tab" aria-selected="false">Textures</button>
+    </nav>
+
+    <section id="texture-library" class="texture-library" hidden>
+      <div class="library-kicker">ASSETS DISPONÍVEIS</div>
+      <h2>Escolha uma textura para trocar</h2>
+      <p>Você pode selecionar o alvo antes de enviar qualquer arquivo.</p>
+      <div class="asset-picker" role="listbox" aria-label="Texturas disponíveis">
+        <button class="asset-chip selected" type="button" data-target="jake_tex_low">jake_tex_low</button>
+        <button class="asset-chip" type="button" data-target="tricky_tex_low">tricky_tex_low</button>
+        <button class="asset-chip" type="button" data-target="fresh_tex_low">fresh_tex_low</button>
+        <button class="asset-chip" type="button" data-target="brody_tex_low">brody_tex_low</button>
+        <button class="asset-chip" type="button" data-target="ella_tex_low">ella_tex_low</button>
+      </div>
+      <button id="back-upload" class="back-upload" type="button">← voltar para Upload</button>
+    </section>
+
+    <section id="upload-view" class="upload-view">
+    <section class="hero">
+      <div class="eyebrow"><span class="pulse"></span> upload bundle</div>
+      <h1>Unity txt<br><em>png changer</em></h1>
+      <p class="intro">Envie um bundle para começar.</p>
+      <div class="mode-toggle" role="group" aria-label="Tipo de arquivo">
+        <button id="site-mode" class="mode-button active" type="button">Site version</button>
+        <button id="android-mode" class="mode-button" type="button">Android version</button>
+      </div>
+    </section>
+
+    <section class="steps" aria-label="Fluxo de processamento">
+      <div class="step active"><span>01</span><strong>Entrada</strong><small>selecione os arquivos</small></div>
+      <div class="step-line"></div>
+      <div class="step"><span>02</span><strong>Replace</strong><small>reconstrói o bundle</small></div>
+      <div class="step-line"></div>
+      <div class="step"><span>03</span><strong>Download</strong><small>baixe o resultado</small></div>
+    </section>
+
+    <form id="replace-form" class="workspace">
+      <input id="unityweb-input" name="unityweb" type="file" accept=".unityweb,.unity3d,application/octet-stream" hidden>
+      <input id="texture-input" name="texture" type="file" accept="image/png,.png" hidden>
+      <div class="button-grid" aria-label="Ações">
+        <button id="archive-button" class="control-button" type="button"><span id="archive-button-label">Upload .unityweb</span><b>↥</b></button>
+        <button id="replace-button" class="control-button primary" type="button" hidden><span>Replace PNG</span><b>↗</b></button>
+        <button id="download-button" class="control-button" type="button" disabled hidden><span>Download custom PNG</span><b>↓</b></button>
+      </div>
+      <div id="file-summary" class="file-summary" hidden><span id="unityweb-name">archive não selecionado</span><span id="texture-name">PNG não selecionada</span></div>
+      <div class="preview-row"><img id="texture-preview" class="texture-preview standalone-preview" alt="Prévia da nova textura"><span id="preview-label">a prévia aparece depois de escolher uma PNG</span></div>
+
+      <div id="target-panel" class="target-panel" hidden>
+        <div class="target-heading"><span class="lock">▣</span><div><strong>Escolha a textura</strong><small>selecione qual TextAsset receberá a PNG</small></div></div>
+        <div class="asset-picker" role="listbox" aria-label="Texturas disponíveis">
+          <span id="selected-target-label" class="selected-target-label">alvo atual: jake_tex_low</span>
+        </div>
+        <code id="target-path">data.unity3d → TextAsset jake_tex_low → Texture2D jake_tex_low</code>
+        <div class="preserved"><span>outros assets permanecem intactos</span></div>
+      </div>
+
+      <div class="action-row"><div id="status" class="status" role="status" aria-live="polite"><span class="status-dot"></span><span>aguardando archive e PNG</span></div></div>
+    </form>
+
+    <section id="result" class="result-panel" hidden>
+      <div class="success-icon">✓</div>
+      <div><strong>Textura substituída com sucesso.</strong><span>O arquivo foi reconstruído sem alterar as outras variantes.</span></div>
+      <a id="download-link" download="bundle.unity3d.modificado" hidden></a>
+    </section>
+
+    <footer><span>processamento temporário · arquivos não são armazenados</span><span>v1.1 / 5 texture targets</span></footer>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
